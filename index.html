@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>8-Puzzle</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav>
+        <h1>8-Puzzle</h1>
+    </nav>
+    <main>
+        <div class="div-top">
+            <div id="user-result" class="user-result hidden">
+                <h3>Seted result</h3>
+                <div class="div-resul-i">
+                   <h3 style="margin: 0 15px; color: rgb(159, 193, 255);">=></h3>
+                   <div id="u-result" class="u-result"></div>
+                </div>
+            </div>
+            <!-- grid -->
+            <div id='div-grid-state' class="div-left" >
+                <div class="mb-15">
+                    <h3>Set end state</h3>
+                </div>
+                
+                <div id="grid-aux" class="grid mb-15">
+                    <div id="au_0" class="box"></div>
+                    <div id="au_1" class="box"></div>
+                    <div id="au_2" class="box"></div>
+                    <div id="au_3" class="box"></div>
+                    <div id="au_4" class="box"></div>
+                    <div id="au_5" class="box"></div>
+                    <div id="au_6" class="box"></div>
+                    <div id="au_7" class="box"></div>
+                    <div id="au_8" class="box"></div>
+                </div>
+
+                <div>
+                    <h3>=><button id="btnSet" onclick="set()">Set</button></h3>
+                </div>
+            </div>
+            <!-- Main grid -->
+            <div id='div-grid' class="div-left hidden">
+                <div id="grid" class="grid">
+                    <div id="tb_0" class="box"></div>
+                    <div id="tb_1" class="box"></div>
+                    <div id="tb_2" class="box"></div>
+                    <div id="tb_3" class="box"></div>
+                    <div id="tb_4" class="box"></div>
+                    <div id="tb_5" class="box"></div>
+                    <div id="tb_6" class="box"></div>
+                    <div id="tb_7" class="box"></div>
+                    <div id="tb_8" class="box"></div>
+                </div>
+                
+                <div class="texts">
+                    <label>Attempts number: <span id="num_attempt">0</span></label>
+                    <label>Step number: <span id="num-step">0</span></label>
+                </div>
+            </div>
+            <!-- 3 grid -->
+            <div class="div-right">
+                <div>
+                    <h3>Choose a search</h3>
+                </div>
+                <div class="div-search">
+                    <div>
+                        <input type="radio" id="best-first" name="search" checked="" value="bestFirst">
+                        <label for="best-first">Best First</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="a" name="search" value="a">
+                        <label for="a">A*</label>
+                    </div>
+                </div>
+
+                <div class="mt-15">
+                    <div class="mb-10">
+                        <h3>Options:</h3>
+                    </div>
+
+                    <div class="div-buttons">
+                        <button id="btnSolve" onclick="solve()" class='opaque' disabled>Solve</button>
+                        <button id="btnShuffle" onclick="shuffle()" class='opaque' disabled>Shuffle</button>
+                        <button id="btnRestart" onclick="restart()" class='opaque' disabled>Restart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="div-path" class="div-path hidden">
+            <h2>* Path *</h2>
+            <div id="path" class="path">
+
+            </div>
+        </div>
+    </main>
+</body>
+
+<script src="js/script.js"></script>
+<script src="js/search.js"></script>
+<script src="js/queue.js"></script>
+</html>
