@@ -1,4 +1,4 @@
-let moves =[
+const moves =[
     [1, 3],
     [0, 2, 4],
     [1, 5],
@@ -10,17 +10,45 @@ let moves =[
     [7, 5]
 ];
 
+const moves15 = [
+    [1,4],
+    [0,2,5],
+    [1,3,6],
+    [2,7],
+    [0,5,8],
+    [1,4,6,9],
+    [2,5,7,10],
+    [3,6,11],
+    [4,9,12],
+    [5,8,10,13],
+    [6,9,11,14],
+    [7,10,15],
+    [8,13],
+    [9,12,14],
+    [10,13,15],
+    [11,14]
+]
+
 //contador de movimentos do user
 let numStep= 0;
 
 // Procure por caixas vazias ao redor da caixa clicada
-function getFreeBox(boxIndex, flag){
-
-    let ret = moves[boxIndex].filter((item, index) => {
-        let destiny = document.querySelector(flag.substr(0,flag.length-1)+item)
-        return destiny.innerHTML.length == 2
-    });
-
+function getFreeBox(indice,boxIndex, flag){
+    let ret
+    if(indice == 9)
+    {
+        ret = moves[boxIndex].filter((item, index) => {
+            let destiny = document.querySelector(flag.substr(0,flag.length-1)+item)
+            return destiny.innerHTML.length == 2
+        });
+    }
+    else{
+        const compare = document.getElementById('ghost')
+        ret = moves15[boxIndex].filter((item, index) => {
+            let destiny = document.querySelector(flag.substr(0,4)+item)
+            return compare.innerHTML == destiny.innerHTML
+        });
+    }
     if(ret.length)
         return ret[0];
     return false;
@@ -58,8 +86,6 @@ function compare(l1, l2)
     return true;
 }
 
-
-
 // Retorna o índice da caixa vazia
 function getEmptyBox(matriz) {
     let index = 0;
@@ -69,19 +95,31 @@ function getEmptyBox(matriz) {
     return index;
 }
 
-
 function possibilidade(lista) {
     let possibilidades = [];
     let indexEmptyBox = getEmptyBox(lista);
-
-    moves[indexEmptyBox].forEach((val, i) => {
-        let listaTemp = new Array(...lista);
-
-        listaTemp[indexEmptyBox] = lista[val];
-        listaTemp[val] = 0;
-        possibilidades.push(listaTemp);
-        listaTemp = [];
-    });
+    if(lista.length == 9)
+    {
+        moves[indexEmptyBox].forEach((val, i) => {
+            let listaTemp = new Array(...lista);
+    
+            listaTemp[indexEmptyBox] = lista[val];
+            listaTemp[val] = 0;
+            possibilidades.push(listaTemp);
+            listaTemp = [];
+        });
+    }
+    else{
+        moves15[indexEmptyBox].forEach((val, i) => {
+            let listaTemp = new Array(...lista);
+    
+            listaTemp[indexEmptyBox] = lista[val];
+            listaTemp[val] = 0;
+            possibilidades.push(listaTemp);
+            listaTemp = [];
+        });
+    }
+    
     return possibilidades;
 }
 
