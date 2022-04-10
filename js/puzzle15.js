@@ -14,10 +14,10 @@ window.addEventListener("load", init);
 function init(e)
 {
     switchActions(true);
-    listLayout = [1, 2, 3, 4, 5, 6, 7, 8, 0];
-    listResult = [1, 2, 3, 4, 5, 6, 7, 8, 0];
-    fillGrid([...grid.children],listLayout);
-    fillGrid([...gridAux.children],listResult)
+    listLayout = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+    listResult = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,0];
+    fillGrid15([...grid.children],listLayout);
+    fillGrid15([...gridAux.children],listResult)
     setNumStep(0);
 }
 
@@ -85,7 +85,7 @@ function showSetedResult() {
     let elem = document.querySelector('#u-result') 
     elem.innerHTML = ""
     for (let i = 0; i < listResult.length; i++) {
-        if(i!= 0 && i % 3 == 0)
+        if(i!= 0 && i % 4 == 0)
             elem.innerHTML += "<br>";
         elem.innerHTML += " " +listResult[i] != 0 ? " " +listResult[i] : ' &#128123'
     }
@@ -96,7 +96,7 @@ async function animateCaminho(caminho){
     if(caminho && caminho.length > 0)
     {
         listLayout = caminho[0].vetor;
-        fillGrid([...grid.children],caminho[0].vetor);
+        fillGrid15([...grid.children],caminho[0].vetor);
         caminho.splice(0, 1);
         setTimeout(() => {
             animateCaminho(caminho);
@@ -167,7 +167,7 @@ function matrixFromList(list)
     let ret = document.createElement("div");
     ret.classList.add("div-step");
     for (let i = 0; i < list.length; i++) {
-        if(i % 3 == 0)
+        if(i % 4 == 0)
             ret.innerHTML += "<br>";
         ret.innerHTML += " " +list[i] != 0 ? " " +list[i] : ' &#128123'
     }
@@ -189,7 +189,7 @@ function switchActions(operation){
 }
 
 //preenche a grid
-function fillGrid(grid, list = [])
+function fillGrid15(grid, list = [])
 {
     grid.forEach(function(item, i) {
         if(list[i] > 0) {
@@ -215,7 +215,7 @@ function shuffle()
     listLayout = lista2;
     //setNumStep(0)
     quantidadeRandom = random_iterations;
-    fillGrid([...grid.children],listLayout)
+    fillGrid15([...grid.children],listLayout)
 }
 
 function random_moves(lista, movimentos = 0){
@@ -244,21 +244,21 @@ function handleClickBox(e)
 function moveBox(boxIndex, flag) {
 
     let box = document.querySelector(flag);
-    let destinyIndex = getFreeBox(boxIndex,flag);
+    let destinyIndex = getFreeBox(15,boxIndex,flag);
     let moved = false;
     if(flag.includes('tb')){
         if(destinyIndex !== false){
             listLayout[destinyIndex] = parseInt(box.innerHTML);
             listLayout[boxIndex] = 0;
     
-            fillGrid([...grid.children],listLayout);
+            fillGrid15([...grid.children],listLayout);
             moved = true;
         }
     }else {
         if(destinyIndex !== false){
             listResult[destinyIndex] = parseInt(box.innerHTML);
             listResult[boxIndex] = 0;
-            fillGrid([...gridAux.children],listResult);
+            fillGrid15([...gridAux.children],listResult);
             moved = true;
         }
     }
